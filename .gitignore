@@ -1,0 +1,5 @@
+__pycache__
+*.png
+*.log
+trash.py
+imagesearch.py
