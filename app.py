@@ -5,7 +5,10 @@ import re
 import webbrowser
 import time
 import os
-url="https://www.9anime.to/watch/death-note-dub.v7y2/3jjr12"
+print("Initialized scraper")
+print("Please Enter Your 9anime url \n")
+url=input()
+
 driver = webdriver.Chrome()
 driver.get(url)
 soup=BeautifulSoup(driver.page_source,"html.parser")
