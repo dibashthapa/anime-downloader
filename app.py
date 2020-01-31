@@ -1,39 +1,39 @@
-import wget
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import re
-import pyautogui
+import webbrowser
 import time
-
-driver = webdriver.Firefox()
-
-url="https://www.kickassanime.rs/anime/death-note-dub-529702"
+import os
+url="https://www.9anime.to/watch/death-note-dub.v7y2/3jjr12"
+driver = webdriver.Chrome()
 driver.get(url)
-
 soup=BeautifulSoup(driver.page_source,"html.parser")
-
 fileWrite= open("output.html","w")
 fileWrite.write(str(soup))
+webbrowser.get("firefox")
 f=open("output.html","r")
 f1=f.readlines()
-x=re.findall("/[a-z]+/[a-z]+-[\w]+-[\w]+-[\w]*[0-9]/[\w\d-]+",str(f1))
+x=re.findall("/[\w]+/[\w]+-[\w]+-[\w]+[.0-9a-z]+/[0-9a-z]+",str(f1))
+urls=[]
+length=len(x)//3
 
-file=open("links.txt","w")
-def getVideoURL(url):
-    element= driver.find_element_by_id("video")
-    src= element.get_attribute("src")
-    print(src)
 
-for data in x:
-    file.write(str(data)+"\n")
-
-for links in x:
-    episodeURL="https://www.kickassanime.rs"+links
-    driver.get(episodeURL)
-    time.sleep(8)
-    pyautogui.click()
+for link in range(length*2,len(x)):
+    episodeUrl="https://9anime.to"+x[link]
+    driver.get(episodeUrl)
+    tab = driver.find_element_by_xpath('//span[@data-name="35"]')
+    driver.execute_script("arguments[0].click();", tab)
+    episodes = driver.find_elements_by_css_selector('.server[data-name="35"] a')
+    driver.execute_script("arguments[0].click();", episodes[0])
     time.sleep(5)
-    pyautogui.click()
-    time.sleep(10)
-    getVideoURL(episodeURL)
+    iframe = driver.find_element_by_xpath(
+        '//iframe[@style="width: 100%; height: 100%;"]')
+    driver.switch_to.frame(iframe)
+    videoUrl = driver.find_element_by_tag_name('video').get_attribute("src")
+    time.sleep(3)
+
+    driver.get(videoUrl)
+    time.sleep(3)
+
 driver.close()
