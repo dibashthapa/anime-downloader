@@ -23,7 +23,7 @@
  > <code> python app.py </code> <br>
 Input your 9anime url only 
 
-# Caution
+# Warning
 :warning: Please clean up your pc before using this program. This program can eat your ram and make your computer slow
 # Contributors
 
