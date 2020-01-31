@@ -3,3 +3,7 @@ __pycache__
 *.log
 trash.py
 imagesearch.py
+*.jpg
+newoutput.html
+episode.txt
+main.py
